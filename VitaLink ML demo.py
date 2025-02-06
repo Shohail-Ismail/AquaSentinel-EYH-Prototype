@@ -5,8 +5,8 @@ from tensorflow.keras import layers
 import matplotlib.pyplot as plot
 
 # Setting up reproducibility during eval
-np.random.seed(19)
-tf.random.set_seed(19)
+np.random.seed(39)
+tf.random.set_seed(39)
 
 # synthetic training data
 training_samples = 1000
@@ -41,7 +41,7 @@ input_dim = norm_tr_data.shape[1]
 input_layer = keras.Input(shape = (input_dim,))
 
 # dense layer made to encode inp data to 1d with ReLU
-# then decoding back to originial shape with linear activ func
+# then decoding back to original shape with linear activ func
 encoded = layers.Dense(1, activation = 'relu')(input_layer)
 decoded = layers.Dense(input_dim, activation = 'linear')(encoded)
 
