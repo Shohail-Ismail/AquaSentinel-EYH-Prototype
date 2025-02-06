@@ -1,6 +1,10 @@
 import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import matplotlib.pyplot as plot
 
-# synthetic trainign data
+# synthetic training data
 training_samples = 1000
 hrate = np.random.normal(loc = 80, scale = 10, size = training_samples)
 bo2 = np.random.normal(loc = 97.5, scale =2.5, size = training_samples)
@@ -27,7 +31,27 @@ bo2_panic = np.random.normal(loc = 92, scale = 4, size = 10)
 panic_norm = np.stack([hrate_panic, bo2_panic], axis =1)
 
 test = np.concatenate([avg_norm, panic_norm], axis = 0)
-labels = np.concatenate([np.zeros(test_samples), np.ones(10)]) #0 = avg, 1 = panic 
 norm_tst_data = (test - data_min) / (data_max - data_min)
+#print(norm_tst_data)
 
-print(norm_tst_data)
+# AUTOENCODER (ANN)
+input_dim = norm_tr_data.shape[1]
+input_layer = keras.Input(shape = (input_dim,))
+
+# dense layer to encode input data into 1d with ReLU for complex patterns
+# then decoding it back to originial shape with linear activ func
+encoded = layers.Dense(1, activation = 'relu')(input_layer)
+decoded = layers.Dense(input_dim, activation = 'linear')(encoded)
+
+# build and compile w  adam and mse
+demo_autoencoder = keras.Model(inputs = input_layer, outputs = decoded)
+demo_autoencoder.compile(optimizer= 'adam', loss = 'mse')
+
+demo_autoencoder.summary()
+
+#train model
+demo_autoencoder.fit(norm_tr_data, norm_tr_data, epochs = 50, batch_size =32, shuffle = True)
+
+# convert to tflite
+converter = tf.lite.TFLiteConverter.from_keras_model(demo_autoencoder)
+tflite_model = converter.convert()
