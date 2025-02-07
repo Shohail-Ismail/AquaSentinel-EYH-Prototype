@@ -20,7 +20,9 @@ An autoencoder Artificial Neural Network (ANN) architecture has been used to lea
   - Chose optimiser, loss function, activation functions for encoding and decoding using comparative experiments between configurations (as shown in the training/validation loss graph below) prioritising lower validation loss and stability across epochs.
   - Model is slightly aggressive and, when presented with values at the threshold, errs on the side of anomalous in order to prioritise diver safety over false positives.
 
-![Training/Validation Loss Experiments for 2 Autoencoder Configs]("Training-and-validation-loss-experiments-for-2-autoencoder-configs.png")
+### Training/validation loss experiments for 2 different autoencoder configurations
+![Training/Validation Loss Experiments for 2 Autoencoder Configs](Training-and-validation-loss-experiments-for-2-autoencoder-configs)
+
 
 - **Optimised for edge computing**  
   - Converts the trained model to **TensorFlow Lite (TFLite)** for deployment on microcontrollers.
@@ -69,6 +71,19 @@ python '.\VitaLink ML demo.py'
   - Autoencoder summary (layers, output shapes and number of trainable/non-trainable parameters
   - Saved `*.tflite` model
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
-  - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted
+  - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted 3 successive program runs given below)
   - Accuracy results (overall, labelling normal values, labelling anomalous values)
+
+### Example run 1: 
+#### 100% overall accuracy (100% anomaly detection, 100% normal classification)
+
+![Sample plot 1](sample-plot-example-1)
+
+### Example run 2: 
+#### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
+![Sample plot 2](sample-plot-example-2)
+
+### Example run 2: 
+#### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
+![Sample plot 3](sample-plot-example-3)
 
