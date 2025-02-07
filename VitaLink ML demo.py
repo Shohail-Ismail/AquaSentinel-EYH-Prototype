@@ -5,8 +5,8 @@ from tensorflow.keras import layers
 import matplotlib.pyplot as plot
 
 # Setting up reproducibility during eval
-np.random.seed(39)
-tf.random.set_seed(39)
+np.random.seed(19)
+tf.random.set_seed(19)
 
 # synthetic training data
 training_samples = 1000
@@ -22,17 +22,17 @@ norm_tr_data = (training_data - data_min) / (data_max - data_min)
 # synth test data 
 test_samples = 100
 
-# avg values
-avg_hrate = np.random.normal(loc = 75, scale = 5, size = test_samples)
-avg_bo2 = np.random.normal(loc = 98, scale = 1, size = test_samples)
-avg_norm = np.stack([avg_hrate, avg_bo2], axis =1)
+# norm values
+norm_hrate = np.random.normal(loc = 75, scale = 5, size = test_samples)
+norm_bo2 = np.random.normal(loc = 98, scale = 1, size = test_samples)
+norm_norm = np.stack([norm_hrate, norm_bo2], axis =1)
 
 # anomalous vals
 hrate_anom = np.random.normal(loc = 60, scale = 10, size = 10)
 bo2_anom = np.random.normal(loc = 92, scale = 4, size = 10)
 anom_norm = np.stack([hrate_anom, bo2_anom], axis =1)
 
-test = np.concatenate([avg_norm, anom_norm], axis = 0)
+test = np.concatenate([norm_norm, anom_norm], axis = 0)
 labels = np.concatenate([np.zeros(test_samples), np.ones(10)]) #0 = avg, 1 = panic 
 norm_tst_data = (test - data_min) / (data_max - data_min)
 
@@ -97,7 +97,7 @@ for i in range(len(norm_tr_data)):
     train_errors.append(error)
 train_errors = np.array(train_errors)
 
-#threshold separaing anom and avg valie
+#threshold separaing anom and norm values
 threshold = 0
 for error in train_errors:
     threshold += error
@@ -106,10 +106,43 @@ threshold = threshold / len(train_errors) + 0.5 * np.std(train_errors)
 print(f"\nAnom threshold: {threshold:.4f}")  # TESTING
 
 # Classifies each test sample as anomaly if error > threshold.
-predicted_anomalies = []
-for error in reconstr_errors:
-    if error > threshold:
-        predicted_anomalies.append(True)
-    else:
-        predicted_anomalies.append(False)
-        
+predicted_anomalies = reconstr_errors > threshold
+
+## Output and visualisation
+print("\nnresults:\n")
+for i, (error, label, pred) in enumerate(zip(reconstr_errors, labels, predicted_anomalies)):
+    status = "Anomaly" if pred else "Normal"
+    actual = "Anomaly" if label == 1 else "Normal"
+    print(f"Sample {i+1:03d}: Err = {error:.4f} | P: {status} | A: {actual}")
+
+# Visualise all data points against anomaly threshold
+plot.figure(figsize=(10, 6))
+plot.plot(reconstr_errors, 'bo-', label = 'Reconstruction error')
+plot.axhline(y = threshold, color= 'r', linestyle = '--', label = 'Anomaly threshold')
+plot.title("Reconstruction Error For Test Data")
+plot.xlabel("Test data index")
+plot.ylabel("MSE")
+plot.legend()
+plot.show()
+
+# Accuracy calc
+total_samples = len(labels)
+correct_pred = 0
+correct_norm = 0
+correct_anom = 0
+
+for label, pred in zip(labels, predicted_anomalies):
+    if label == 0 and not pred:
+        correct_norm += 1 #correct norm
+    elif label == 1 and pred:
+        correct_anom += 1 #correct anom
+    if (label == 0 and not pred) or (label == 1 and pred):
+        correct_pred += 1
+
+# Conv accuracies to %
+overall_accuracy = (correct_pred / total_samples) * 100
+anomaly_accuracy = (correct_anom / 10) * 100
+print("\nAccuracies:\n")
+print(f"Normal: {correct_norm}%")
+print(f"Anomaly: {anomaly_accuracy}%")
+print(f"Total: {overall_accuracy:.2f}%")
