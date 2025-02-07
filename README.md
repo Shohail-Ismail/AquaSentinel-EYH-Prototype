@@ -54,7 +54,6 @@ An autoencoder Artificial Neural Network (ANN) architecture has been used to lea
 - **Libraries**:
   - `numpy`
   - `tensorflow`
-  - `tensorflow.keras`
   - `maptplotlib`
  
 - **Running the program**:
