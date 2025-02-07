@@ -83,7 +83,7 @@ python '.\VitaLink ML demo.py'
 #### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
 ![Sample plot 2](sample-plot-example-2)
 
-### Example run 2: 
+### Example run 3: 
 #### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
 ![Sample plot 3](sample-plot-example-3)
 
