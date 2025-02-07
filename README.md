@@ -1,4 +1,4 @@
-# AquaSentintel-EYH-Demo
+# AquaSentinel-EYH-Demo
 
    * [Background information](#background-information)
    * [Core features](#core-features)
@@ -8,7 +8,7 @@
 
 ## Background information
 
-AquaSentintel is a machine learning-driven anomaly-detection system designed for deep-sea diving safety, developed as part of a 6-person multidisciplinary team for the 'Engineering: You're Hired!' university-wide competition. AquaSentinel is a component of our project 'VitaLink': a wearable armband that continuously monitors a diver’s vital signs and environmental conditions, leveraging AI-based anomaly detection to identify potential medical emergencies, and alerting both the diver and the surface team in case of one.
+AquaSentinel is a machine learning-driven anomaly-detection system designed for deep-sea diving safety, developed as part of a 6-person multidisciplinary team for the 'Engineering: You're Hired!' university-wide competition. AquaSentinel is a component of our project 'VitaLink': a wearable armband that continuously monitors a diver’s vital signs and environmental conditions, leveraging AI-based anomaly detection to identify potential medical emergencies, and alerting both the diver and the surface team in case of one.
 
 An autoencoder Artificial Neural Network (ANN) architecture has been used to learn normal physiological patterns and detect deviations that could indicate distress. The model has been optimised for deployment on embedded devices with low power consumption and real-time inference capabilities. 
 
