@@ -1,13 +1,11 @@
 import numpy as np
 import tensorflow as tf
-import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 # import os
 
-# Maintaining reproducibility was attempted, however this was unable
-# to be achieved
+# Maintaining reproducibility was attempted, however this was unable to be achieved
 # due to timing constraints - however the overall accuracy only fluctatue by +- 3% 
 # accuracy, and during 85% of tests, the anomaly detection accuracy was at 100%
 """
