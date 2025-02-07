@@ -41,7 +41,7 @@ An autoencoder Artificial Neural Network (ANN) architecture has been used to lea
 
 - **Reproducibility constraints**  
   - Due to timing constraints, full reproducibility was not able to be achieved (the reason for this was not fully understood as despite setting random seeds, forcing TensorFlow to behave deterministically, and disabling `oneDNN` (which was causing nondeterminism due to floating-point round-off errors), the program was still giving different accuracies with each run).
-  - However, overall accuracy fluctuations were observed to only be in the range of `(96±3)`%, with 85% of tests achieving **100% anomaly detection accuracy**.
+  - However, overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving **100% anomaly detection accuracy**.
 
 - **Limited feature set and simplified model**  
   - Currently detects only heart rate and blood oxygen anomalies, however this is expected for a prototype demonstration.
