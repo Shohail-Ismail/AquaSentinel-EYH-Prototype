@@ -20,7 +20,7 @@ An autoencoder Artificial Neural Network (ANN) architecture has been used to lea
   - Chose optimiser, loss function, activation functions for encoding and decoding using comparative experiments between configurations (as shown in the training/validation loss graph below) prioritising lower validation loss and stability across epochs.
   - Model is slightly aggressive and, when presented with values at the threshold, errs on the side of anomalous in order to prioritise diver safety over false positives.
 
-![Training/Validation Loss Experiments for 2 Autoencoder Configs](Screenshot 2025-02-06 193802.png)
+![Training/Validation Loss Experiments for 2 Autoencoder Configs](Screenshot%202025-02-06%20193802.png")
 
 - **Optimised for edge computing**  
   - Converts the trained model to **TensorFlow Lite (TFLite)** for deployment on microcontrollers.
