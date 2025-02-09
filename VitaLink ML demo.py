@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # import os
 
 # Maintaining reproducibility was attempted, however this was unable to be achieved
-# due to timing constraints - however the overall accuracy only fluctatue by +- 3% 
+# due to timing constraints - however the overall accuracy only fluctuates by +- 3% 
 # accuracy, and during 85% of tests, the anomaly detection accuracy was at 100%
 """
 ## Setting up reproducibility during eval
@@ -42,7 +42,7 @@ normal_test_normalised = np.stack([test_hrate_normal, test_bo2_normal], axis =1)
 
 # Small subset of test data is anomalous 
 # (simulating diver facing hypoxia due to loss of consciousness)
-# anomalous overlaps w normal data to maximise sensitivity and prioritise anomaly detection over false positives
+# anomalous overlaps with normal data to maximise sensitivity and prioritise anomaly detection over false positives
 test_hrate_hypoxia = np.random.normal(loc = 60, scale = 10, size = 10)
 test_bo2_hypoxia = np.random.normal(loc = 92, scale = 4, size = 10)
 hypoxia_test_normalised = np.stack([test_hrate_hypoxia, test_bo2_hypoxia], axis =1)
@@ -183,12 +183,10 @@ for label, pred in zip(test_labels, predicted_anomalies):
     # Correctly classified normal
     if label == 0 and not pred:
         correct_norm += 1
+        correct_pred += 1
     # Correctly classified anomaly
     elif label == 1 and pred:
         correct_anom += 1
-
-    # Correct if pred == label
-    if (label == 0 and not pred) or (label == 1 and pred):
         correct_pred += 1
 
 # Conv accuracies to %
