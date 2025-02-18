@@ -32,7 +32,7 @@ norm_tr_data = (training_data - data_min) / (data_max - data_min)
 
 
 
-## Generates simple synthethic test data 
+## Generates simple synthetic test data 
 test_samples = 100
 
 # Normal test data
