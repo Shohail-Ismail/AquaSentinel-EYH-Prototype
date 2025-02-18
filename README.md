@@ -54,7 +54,7 @@ An autoencoder Artificial Neural Network (ANN) architecture has been used to lea
 - **Libraries**:
   - `numpy`
   - `tensorflow`
-  - `maptplotlib`
+  - `matplotlib`
  
 - **Running the program**:
 
@@ -70,7 +70,7 @@ python '.\VitaLink ML demo.py'
   - Autoencoder summary (layers, output shapes and number of trainable/non-trainable parameters
   - Saved `*.tflite` model
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
-  - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted 3 successive program runs given below)
+  - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted (3 successive program runs given below)
   - Accuracy results (overall, labelling normal values, labelling anomalous values)
 
 ### Example run 1: 
