@@ -1,7 +1,7 @@
 # AquaSentinel-EYH-Demo
 
    * [Background information](#background-information)
-   * [Running the program](#running-the-program)
+   * [Run-demo](#run-demo)
    * [Core features](#core-features)
    * [Limitations](#limitations)
 
@@ -13,10 +13,10 @@ AquaSentinel is a machine learning-driven anomaly-detection system designed for 
 A shallow autoencoder Artificial Neural Network (ANN) architecture has been used to learn normal physiological patterns and detect deviations that could indicate distress. The model has been optimised for deployment on embedded devices with low power consumption and real-time inference capabilities. 
 
 ---
+<!-- I hate everyone -->
+## Run demo
 
-## Run
-
-- **Required Python version**: Python 3.10.9
+- **Required Python --v**: Python 3.10.9
 - **Libraries**:
   - `numpy`
   - `tensorflow`
@@ -33,7 +33,7 @@ python '.\VitaLink ML demo.py'
 ```
 
 - **Expected outputs**:
-  - Autoencoder summary (layers, output shapes and number of trainable/non-trainable parameters
+  - Autoencoder summary (layers, output shapes and number of trainable/non-trainable parameters)
   - Saved `*.tflite` model
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
   - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted (3 successive program runs given below)
