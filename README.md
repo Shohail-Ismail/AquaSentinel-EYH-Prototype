@@ -81,7 +81,8 @@ python '.\VitaLink ML demo.py'
 
 - **Reproducibility constraints**  
   - Due to timing constraints, full reproducibility was not able to be achieved (the reason for this was not fully understood as despite setting random seeds, forcing TensorFlow to behave deterministically, and disabling `oneDNN` (which was causing nondeterminism due to floating-point round-off errors), the program was still giving different accuracies with each run).
-  - However, overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving **100% anomaly detection accuracy**.
+  - However, overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving 100% anomaly detection accuracy.
+    - Of course, instances of 100% are only due to the simplicity of the data and model (more realistic readings/fluctuations would give lower metrics), though the current accuracy readings serve as a useful benchmark on the model's ease of improvement.
 
 - **Limited feature set and simplified model**  
   - Currently detects only heart rate and blood oxygen anomalies, however this is expected for a prototype demonstration.
