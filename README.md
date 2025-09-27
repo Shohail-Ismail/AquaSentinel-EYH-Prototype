@@ -14,7 +14,7 @@ A shallow autoencoder Artificial Neural Network (ANN) architecture has been used
 
 ---
 
-## Running The Program
+## Run
 
 - **Required Python version**: Python 3.10.9
 - **Libraries**:
@@ -54,7 +54,7 @@ python '.\VitaLink ML demo.py'
 
 ---
 
-## Core Features
+## Core features
 
 - **ML anomaly detection**  
   - Uses an autoencoder trained on synthetic normal physiological data to detect anomalies.
