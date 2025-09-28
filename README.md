@@ -1,4 +1,4 @@
-# AquaSentinel-EYH-Demo
+# AquaSentinel Demo
 
    * [Background information](#background-information)
    * [Run-demo](#run-demo)
@@ -28,18 +28,18 @@ pip install -r requirements.txt
 
 ```python
 # To run the demo (inference)
-python VitaLink-AquaSentintel.py
+python VitaLink-AquaSentinel.py
 ```
 
 - **Running the program (retraining)**:
 ```python
 # To retrain the model
 pip install tensorflow-cpu
-python VitaLink-AquaSentintel.py --train
+python VitaLink-AquaSentinel.py --train
 ```
 
 - **Expected outputs**:
-  - If training: saved `AquaSentintel.tflite` model rewriting repo one
+  - If training: saved `AquaSentinel.tflite` model rewriting repo one
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
   - Graph showing results of inference with anomaly threshold and all values' reconstruction errors plotted (3 successive program runs given at bottom of page)
   - Accuracy results (overall percentage, normal accuracy, anomaly accuracy)
@@ -85,15 +85,17 @@ python VitaLink-AquaSentintel.py --train
 
 ## Accuracy plots
 
+- Trained on 10,000 samples and tested on 2000.
+
 ### Example run 1: 
-#### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
-![Sample plot 2](docs/assets/sample-plot-example-2)
-
-### Example run 2: 
-#### 100% overall accuracy (100% anomaly detection, 100% normal classification)
-
+#### 95.42% overall accuracy (60% anomaly detection, 95.6% normal classification)
 ![Sample plot 1](docs/assets/sample-plot-example-1)
 
-### Example run 3: 
-#### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
+### Example run 2: 
+#### 99.55% overall accuracy (50% anomaly detection, 99.8% normal classification)
+
 ![Sample plot 3](docs/assets/sample-plot-example-3)
+
+### Example run 3: 
+#### 96.37%% overall accuracy (50%% anomaly detection, 96.60% normal classification)
+![Sample plot 2](docs/assets/sample-plot-example-2)

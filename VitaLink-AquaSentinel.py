@@ -6,7 +6,7 @@ import argparse
 
 def create_data():
     # Synthetic training data 
-    training_samples = 1000
+    training_samples = 10000
     hrate = np.random.normal(80, 10, training_samples)
     bo2 = np.random.normal(97.5, 2.5, training_samples)
     train_data = np.stack([hrate, bo2], axis=1)
@@ -15,7 +15,7 @@ def create_data():
     train_data = (train_data - data_min) / (data_max - data_min)
 
     # Synthetic test data
-    test_samples = 100
+    test_samples = 2000
     test_hrate_normal = np.random.normal(75, 5, test_samples)
     test_bo2_normal = np.random.normal(98, 1, test_samples)
     normal_test = np.stack([test_hrate_normal, test_bo2_normal], axis=1)
@@ -36,10 +36,19 @@ def create_data():
 # Training mode (optional; run with --train)
 def train(train_data):
 
-    # Imports from tensorflow-cpu for training only
-    import tensorflow as tf
-    from tensorflow import keras
-    from tensorflow.keras import layers
+    # Imports tensorflow-cpu, flagging a common error caused by not READMEing the eponymous
+    try:
+        import tensorflow as tf
+        from tensorflow import keras
+        from tensorflow.keras import layers
+    except ModuleNotFoundError as e:
+        if "tensorflow" in str(e):
+            raise ModuleNotFoundError(
+                "\n\nIt seems TensorFlow was not installed before --train was run. Please download the training requirements as specified in the README: \n"
+                " > pip install -r requirements-train.txt\n"
+            ) from e
+        else:
+            raise
 
     # Shallow autoencoder
     input_dim = train_data.shape[1] # Explicit '2' not used to reflect future vitals addition
@@ -107,14 +116,19 @@ def show_results(reconstruction_errors, test_labels, predicted_labels, threshold
     plt.show()
 
     # Metrics
+    num_norm = np.sum(test_labels == 0)
+    num_anom = np.sum(test_labels == 1)
+
     correct_norm = np.sum((test_labels == 0) & (predicted_labels == False))
     correct_anom = np.sum((test_labels == 1) & (predicted_labels == True))
+
+    normal_accuracy = correct_norm / num_norm * 100
+    anomaly_accuracy = correct_anom / num_anom * 100
     overall_accuracy = (correct_norm + correct_anom) / len(test_labels) * 100
-    anomaly_accuracy = (correct_anom / 10) * 100
 
     print("\nAccuracy results:")
-    print(f"Normal accuracy: {correct_norm}%")
-    print(f"Anomaly accuracy: {anomaly_accuracy}%")
+    print(f"Normal accuracy: {normal_accuracy:.2f}%")
+    print(f"Anomaly accuracy: {anomaly_accuracy:.2f}%")
     print(f"Overall: {overall_accuracy:.2f}%")
 
 
