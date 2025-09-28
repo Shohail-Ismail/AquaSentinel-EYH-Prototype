@@ -6,7 +6,7 @@ import argparse
 
 def create_data():
     # Synthetic training data 
-    training_samples = 10000 # was 1000 - trained on 1000
+    training_samples = 10000 # trained on 1000
     hrate = np.random.normal(80, 10, training_samples)
     bo2 = np.random.normal(97.5, 2.5, training_samples)
     train_data = np.stack([hrate, bo2], axis=1)
@@ -99,7 +99,7 @@ def demo_pipeline(train_data, test_data):
         - Possibly retrain on more varied data to improve anomaly detection,
         especially as current ratio of norm:anom is 10:1, which is much
         higher than IRL; anywhere from ~625:1 to ~20,000:1 - see [DAN Annual
-        Report 2021](/docs/AnnualDivingReport2021.pdf)
+        Report 2021](/docs/AnnualDivingReport2021.pdf) -- when you come back to this, remove the paper from Docs - its not necessary.
     """
     # Establish normal/anomaly threshold and perform inference on test data
     train_errors = np.array([sample_err(s) for s in train_data])
