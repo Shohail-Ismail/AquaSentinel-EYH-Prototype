@@ -89,13 +89,13 @@ python VitaLink-AquaSentinel.py --train
 
 ### Example run 1: 
 #### 95.42% overall accuracy (60% anomaly detection, 95.6% normal classification)
-![Sample plot 1](docs/assets/sample-plot-example-1)
+![Sample plot 1](docs/assets/sample-plot-example-1.png)
 
 ### Example run 2: 
 #### 99.55% overall accuracy (50% anomaly detection, 99.8% normal classification)
 
-![Sample plot 3](docs/assets/sample-plot-example-3)
+![Sample plot 3](docs/assets/sample-plot-example-3.png)
 
 ### Example run 3: 
 #### 96.37%% overall accuracy (50%% anomaly detection, 96.60% normal classification)
-![Sample plot 2](docs/assets/sample-plot-example-2)
+![Sample plot 2](docs/assets/sample-plot-example-2.png)
