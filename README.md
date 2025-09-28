@@ -1,4 +1,4 @@
-# AquaSentinel-EYH-Demo DONT SAVE THIS ONE FIRST, SAVE IT LAST AFTER CONTRIBS TIMELINE. REMEMBER.
+# AquaSentinel-EYH-Demo
 
    * [Background information](#background-information)
    * [Run-demo](#run-demo)
