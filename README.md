@@ -39,11 +39,10 @@ python VitaLink-AquaSentintel.py --train
 ```
 
 - **Expected outputs**:
-  - Autoencoder summary (layers, output shapes and number of trainable/non-trainable parameters)
-  - Saved `*.tflite` model
+  - If training: saved `AquaSentintel.tflite` model rewriting repo one
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
-  - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted (3 successive program runs given below)
-  - Accuracy results (overall, labelling normal values, labelling anomalous values)
+  - Graph showing results of inference with anomaly threshold and all values' reconstruction errors plotted (3 successive program runs given at bottom of page)
+  - Accuracy results (overall percentage, normal accuracy, anomaly accuracy)
 
 ---
 
@@ -52,7 +51,7 @@ python VitaLink-AquaSentintel.py --train
 - **ML anomaly detection**  
   - Uses an autoencoder trained on synthetic normal physiological data to detect anomalies.
   - Identifies hypoxia-like conditions in divers based on heart rate and blood oxygen levels (anomalous data is also synthetic).
-  - Chose optimiser, loss function, activation functions for encoding and decoding using comparative experiments between configurations (as shown in the training/validation loss graph below) prioritising lower validation loss and stability across epochs.
+  - Chose optimiser, loss function, activation functions for encoding and decoding using comparative experiments between configurations prioritising lower validation loss and stability across epochs.
   - Model is slightly aggressive and, when presented with values at the threshold, errs on the side of anomalous in order to prioritise diver safety over false positives.
 
 - **Optimised for edge computing**  
@@ -73,7 +72,7 @@ python VitaLink-AquaSentintel.py --train
 ## Limitations
 
 - **Reproducibility constraints**
-  - Reproducibility was attempted through random seeds and disabling oneDNN ((which was causing nondeterminism due to floating-point round-off errors) but minor non-determinism still remains in TensorFlow's training operations. Due to timing constraints, scope of the problem, and the relatively small run-to-run accuracy fluctuations, this was not addressed further. Hackathon leaders further affirmed that this level of variance is expected for shallow models and does not affect the validity of the demo.
+  - Reproducibility was attempted through random seeds and disabling oneDNN (which was causing nondeterminism due to floating-point round-off errors) but minor non-determinism still remains in TensorFlow's training operations. Due to timing constraints, scope of the problem, and the relatively small run-to-run accuracy fluctuations, this was not addressed further. Hackathon leaders further affirmed that this level of variance is expected for shallow models and does not affect the validity of the demo.
   - Overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving 100% anomaly detection accuracy.
     - Of course, instances of 100% are only due to the simplicity of the data and model (more realistic readings/fluctuations would give lower metrics), though the current accuracy readings serve as a useful benchmark on the model's ease of improvement.
 
@@ -82,18 +81,19 @@ python VitaLink-AquaSentintel.py --train
   - Later, the model would need to be expanded to encompass more vital signs (e.g., breathing patterns, temperature).
   - Further optimisations are required for real world deep-sea conditions.
 
-## Accuracy plots
+---
 
+## Accuracy plots
 
 ### Example run 1: 
 #### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
-![Sample plot 2](sample-plot-example-2)
+![Sample plot 2](docs/assets/sample-plot-example-2)
 
 ### Example run 2: 
 #### 100% overall accuracy (100% anomaly detection, 100% normal classification)
 
-![Sample plot 1](sample-plot-example-1)
+![Sample plot 1](docs/assets/sample-plot-example-1)
 
 ### Example run 3: 
 #### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
-![Sample plot 3](sample-plot-example-3)
+![Sample plot 3](docs/assets/sample-plot-example-3)
