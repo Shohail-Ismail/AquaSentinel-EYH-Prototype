@@ -1,9 +1,10 @@
-# AquaSentinel-EYH-Demo
+# AquaSentinel-EYH-Demo DONT SAVE THIS ONE FIRST, SAVE IT LAST AFTER CONTRIBS TIMELINE. REMEMBER.
 
    * [Background information](#background-information)
    * [Run-demo](#run-demo)
    * [Core features](#core-features)
    * [Limitations](#limitations)
+   * [Accuracy plots](#accuracy-plots)
 
 
 ## Background information
@@ -13,23 +14,28 @@ AquaSentinel is a machine learning-driven anomaly-detection system designed for 
 A shallow autoencoder Artificial Neural Network (ANN) architecture has been used to learn normal physiological patterns and detect deviations that could indicate distress. The model has been optimised for deployment on embedded devices with low power consumption and real-time inference capabilities. 
 
 ---
-<!-- I hate everyone -->
 ## Run demo
 
-- **Required Python --v**: Python 3.10.9
-- **Libraries**:
-  - `numpy`
-  - `tensorflow`
-  - `matplotlib`
- 
-- **Running the program**:
+- **Requires**
+    - Python 3.10.9
+    - numpy, matplotlib, tflite-runtime, tensorflow-cpu (if retraining)
 
 ```bash
-# Imports
 pip install -r requirements.txt
+```
+ 
+- **Running the program (inference)**:
 
-# To run the analysis
-python '.\VitaLink ML demo.py'
+```python
+# To run the demo (inference)
+python VitaLink-AquaSentintel.py
+```
+
+- **Running the program (retraining)**:
+```python
+# To retrain the model
+pip install tensorflow-cpu
+python VitaLink-AquaSentintel.py --train
 ```
 
 - **Expected outputs**:
@@ -38,19 +44,6 @@ python '.\VitaLink ML demo.py'
   - Anomaly threshold value and reconstruction error values, and predicted/actual labels
   - Graph showing results of inference with anomaly threshold and all samples values' reconstruction errors plotted (3 successive program runs given below)
   - Accuracy results (overall, labelling normal values, labelling anomalous values)
-
-### Example run 1: 
-#### 100% overall accuracy (100% anomaly detection, 100% normal classification)
-
-![Sample plot 1](sample-plot-example-1)
-
-### Example run 2: 
-#### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
-![Sample plot 2](sample-plot-example-2)
-
-### Example run 3: 
-#### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
-![Sample plot 3](sample-plot-example-3)
 
 ---
 
@@ -79,12 +72,28 @@ python '.\VitaLink ML demo.py'
 
 ## Limitations
 
-- **Reproducibility constraints**  
-  - Due to timing constraints, full reproducibility was not able to be achieved (the reason for this was not fully understood as despite setting random seeds, forcing TensorFlow to behave deterministically, and disabling `oneDNN` (which was causing nondeterminism due to floating-point round-off errors), the program was still giving different accuracies with each run).
-  - However, overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving 100% anomaly detection accuracy.
+- **Reproducibility constraints**
+  - Reproducibility was attempted through random seeds and disabling oneDNN ((which was causing nondeterminism due to floating-point round-off errors) but minor non-determinism still remains in TensorFlow's training operations. Due to timing constraints, scope of the problem, and the relatively small run-to-run accuracy fluctuations, this was not addressed further. Hackathon leaders further affirmed that this level of variance is expected for shallow models and does not affect the validity of the demo.
+  - Overall accuracy fluctuations were observed to only be in the range of (96±3)%, with 85% of tests achieving 100% anomaly detection accuracy.
     - Of course, instances of 100% are only due to the simplicity of the data and model (more realistic readings/fluctuations would give lower metrics), though the current accuracy readings serve as a useful benchmark on the model's ease of improvement.
 
 - **Limited feature set and simplified model**  
   - Currently detects only heart rate and blood oxygen anomalies, however this is expected for a prototype demonstration.
   - Later, the model would need to be expanded to encompass more vital signs (e.g., breathing patterns, temperature).
   - Further optimisations are required for real world deep-sea conditions.
+
+## Accuracy plots
+
+
+### Example run 1: 
+#### 99.5% overall accuracy (100% anomaly detection, 99% normal classification)
+![Sample plot 2](sample-plot-example-2)
+
+### Example run 2: 
+#### 100% overall accuracy (100% anomaly detection, 100% normal classification)
+
+![Sample plot 1](sample-plot-example-1)
+
+### Example run 3: 
+#### 97.27%% overall accuracy (90.0%% anomaly detection, 98% normal classification)
+![Sample plot 3](sample-plot-example-3)
