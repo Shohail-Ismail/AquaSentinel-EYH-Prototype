@@ -6,7 +6,7 @@ import argparse
 
 def create_data():
     # Synthetic training data 
-    training_samples = 10000
+    training_samples = 10000 # was 1000 - trained on 1000
     hrate = np.random.normal(80, 10, training_samples)
     bo2 = np.random.normal(97.5, 2.5, training_samples)
     train_data = np.stack([hrate, bo2], axis=1)
@@ -15,19 +15,20 @@ def create_data():
     train_data = (train_data - data_min) / (data_max - data_min)
 
     # Synthetic test data
-    test_samples = 2000
+    test_samples = 2000 # was 100
     test_hrate_normal = np.random.normal(75, 5, test_samples)
     test_bo2_normal = np.random.normal(98, 1, test_samples)
     normal_test = np.stack([test_hrate_normal, test_bo2_normal], axis=1)
 
     # Subset of test data is anomalous, simulating hypoxic diver
-    test_hrate_hypoxia = np.random.normal(60, 10, 10)
-    test_bo2_hypoxia = np.random.normal(92, 4, 10)
+    anomaly_samples = 200 # was 20
+    test_hrate_hypoxia = np.random.normal(60, 10, anomaly_samples)
+    test_bo2_hypoxia = np.random.normal(92, 4, anomaly_samples)
     hypoxia_test = np.stack([test_hrate_hypoxia, test_bo2_hypoxia], axis=1)
 
-    # Combine test data and labels as normal or anomaly
+    # Combine test data and labels as normal/anomaly
     complete_test = np.concatenate([normal_test, hypoxia_test], axis=0)
-    test_labels = np.concatenate([np.zeros(test_samples), np.ones(10)])
+    test_labels = np.concatenate([np.zeros(test_samples), np.ones(anomaly_samples)])
     test_data = (complete_test - data_min) / (data_max - data_min)
 
     return train_data, test_data, test_labels
@@ -88,10 +89,21 @@ def demo_pipeline(train_data, test_data):
         rec = interpreter.get_tensor(out_details[0]["index"])
         return np.mean((sample - rec) ** 2)
 
+    """
+    Side TODO: remove numpy version in requirements.txt
+
+    Main TODO: issue regarding anomaly accuracy lies in adjustment of 
+    the threshold below. Currently set to P95 of training errors - opposite
+    of ideal for testing. Next steps:
+        - Adjust threshold to P5
+        - Possibly retrain on more varied data to improve anomaly detection,
+        especially as current ratio of norm:anom is 10:1, which is much
+        higher than IRL; anywhere from ~625:1 to ~20,000:1 - see [DAN Annual
+        Report 2021](/docs/AnnualDivingReport2021.pdf)
+    """
     # Establish normal/anomaly threshold and perform inference on test data
-    # Std dev is very low to ensure precision - will need tuning for real world data
     train_errors = np.array([sample_err(s) for s in train_data])
-    threshold = np.mean(train_errors) + 0.5 * np.std(train_errors)
+    threshold = np.percentile(train_errors, 95)
     reconstruction_errors = np.array([sample_err(s) for s in test_data])
     predicted_labels = reconstruction_errors > threshold
 
